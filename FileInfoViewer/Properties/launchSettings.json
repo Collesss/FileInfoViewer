@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileInfoViewer": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\serge\\Desktop\\HelpDeskAutocompleteAddRequest.zip"
+    }
+  }
+}

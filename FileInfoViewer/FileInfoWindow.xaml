@@ -1,0 +1,55 @@
+﻿<Window x:Class="FileInfoViewer.FileInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileInfoViewer"
+        xmlns:vm="clr-namespace:FileInfoViewer.ViewModels"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Информация о файле" SizeToContent="WidthAndHeight" MinWidth="250" xml:lang="ru-RU">
+    <Window.Resources>
+        <vm:FileInfoViewModel x:Key="FileInfoViewModel"/>
+        <sys:Double x:Key="CommonFontSize">14</sys:Double>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="{StaticResource CommonFontSize}"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="{StaticResource CommonFontSize}"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+        </Style>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource FileInfoViewModel},Path=FileInfo}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя файла:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Дата создания:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Дата изменения:"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Размер:"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="CRC32 хеш файла:"/>
+
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding FileName, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding CreateDate, StringFormat={}{0:d MMMM yyyy г., H:mm:ss}, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LastModifiedDate, StringFormat={}{0:d MMMM yyyy г., H:mm:ss}, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Size, StringFormat={}{0:N0} байт, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding HashCRC32, StringFormat={}{0:X8} ,Mode=OneWay}"/>
+    </Grid>
+</Window>
